@@ -4,8 +4,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 require('dotenv').config();
 
-// Define route
-
+const getSeatList = require('./scraper');
 const userRouter = require('./routes/userRoutes');
 
 // Put express application in app variable

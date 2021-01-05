@@ -22,6 +22,16 @@ const userSchema = new Schema({
         required: true,
         trim: true,
     },
+    desiredCourseSection: {
+        type: String,
+        required: true,
+        trim: true,
+    },
+    desiredSeatType: {
+        type: String,
+        required: true,
+        trim: true,
+    },
     timeDateSpaceFound: {
         type: String,
     }

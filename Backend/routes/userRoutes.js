@@ -12,15 +12,19 @@ router.post('/post', (req, res) => {
     const phoneNum = req.body.phoneNum;
     const desiredCourseCode = req.body.desiredCourseCode;
     const desiredCourseId = req.body.desiredCourseId;
+    const desiredCourseSection = req.body.desiredCourseSection;
+    const desiredSeatType = req.body.desiredSeatType;
     const newUser = new User({
         name,
         phoneNum,
         desiredCourseCode,
         desiredCourseId,
+        desiredCourseSection,
+        desiredSeatType,
     });
     newUser
         .save()
-        .then(() => res.json(`Confirmed, we'll send you a text at ${phoneNum} when ${desiredCourseCode}${desiredCourseId} has space!`))
+        .then(() => res.json(`Confirmed, we'll send you a text at ${phoneNum} when ${desiredCourseCode}${desiredCourseId}-${desiredCourseSection} has space!`))
         .catch((err) => res.status(400).json(`Error: ${err}`));
 });
 
