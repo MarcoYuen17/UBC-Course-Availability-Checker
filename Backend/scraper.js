@@ -1,21 +1,37 @@
 const rp = require('request-promise');
 const $ = require('cheerio');
-const NUM_SEAT_TYPES = 4;
+const WAIT_MS = 500;
 
-function getSeatList(code, id, section) {
+// Need to create a short wait in the getNumSeats function to give time for seat info to load
+function wait() {
+    return new Promise(resolve => {
+        setTimeout(() => {
+            resolve('');
+        }, WAIT_MS);
+    });
+}
+
+async function getSeatNums(code, id, section, seatType) {
     const url = `https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=subj-section&dept=${code}&course=${id}&section=${section}`;
-    let seatList = [];
+    let numSeats = -1;
     rp(url)
         .then((html) => {
             let tagContents = $('td > strong', html).contents();
-            for (let i = 0; i < NUM_SEAT_TYPES; i++) {
-                seatList.push(tagContents[i].data);
+            switch (seatType) {
+                case 'General':
+                    numSeats = tagContents[2].data;
+                case 'Restricted':
+                    numSeats = tagContents[3].data;
+                default:
+                    numSeats = tagContents[0].data;
             }
-            console.log(seatList);
         })
         .catch((err) => {
-            console.log(err);
+            console.log(`An error occurred while obtaining data for ${seatType.toLowerCase()} seats in ${code}${id} - section ${section}.`);
         });
+
+        await wait();
+        return numSeats;
 }
 
-module.exports = getSeatList;
+module.exports = getSeatNums;

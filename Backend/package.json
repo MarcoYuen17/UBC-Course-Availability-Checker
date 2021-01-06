@@ -24,6 +24,7 @@
     "mongoose": "^5.11.10",
     "puppeteer": "^5.5.0",
     "request": "^2.88.2",
-    "request-promise": "^4.2.6"
+    "request-promise": "^4.2.6",
+    "twilio": "^3.54.1"
   }
 }
