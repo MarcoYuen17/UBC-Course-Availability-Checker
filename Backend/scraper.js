@@ -11,7 +11,7 @@ function wait() {
     });
 }
 
-async function getSeatNums(code, id, section, seatType) {
+async function getNumSeats(code, id, section, seatType) {
     const url = `https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=subj-section&dept=${code}&course=${id}&section=${section}`;
     let numSeats = -1;
     rp(url)
@@ -34,4 +34,4 @@ async function getSeatNums(code, id, section, seatType) {
         return numSeats;
 }
 
-module.exports = getSeatNums;
+module.exports = getNumSeats;

@@ -9,7 +9,7 @@ const twilioAuthToken = process.env.TWILIO_AUTH_TOKEN;
 const twilioClient = require('twilio')(twilioAccountSid, twilioAuthToken);
 
 let User = require('./models/userModel');
-const getSeatNums = require('./scraper');
+const getNumSeats = require('./scraper');
 const userRouter = require('./routes/userRoutes');
 
 // Put express application in app variable
@@ -36,7 +36,7 @@ connection.once('open', () => {
     checkUsers();
 });
 
-// Check course availability for each user every 5 mins
+// Check course availability for each user every 5 mins //TODO: When to stop?
 function checkUsers() {
     User.find()
         .then((users) => {
@@ -54,7 +54,7 @@ async function checkAvailabilities(userList) {
         const courseId = user.desiredCourseId;
         const courseSection = user.desiredCourseSection;
         const seatType = user.desiredSeatType;
-        const numSeats = await getSeatNums(courseCode, courseId, courseSection, seatType);
+        const numSeats = await getNumSeats(courseCode, courseId, courseSection, seatType);
 
         if (numSeats > 0) {
             console.log(`Seat available for ${user.name} in ${courseCode}${courseId} - section ${courseSection}, sending text`);
