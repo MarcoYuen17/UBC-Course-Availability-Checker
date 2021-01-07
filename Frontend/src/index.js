@@ -4,16 +4,17 @@ import './index.css';
 
 class Header extends React.Component {
     render() {
-        return <h1>UBC Course Availability Checker</h1>
+        return <h1 id='header'>UBC Course Availability Checker</h1>
     }
 }
 
 class Main extends React.Component {
     render() {
         return (
-            <form method='post' action=''>
-                <label for='code'>Course Code:</label>
-                <input list='code' name='code' required/>
+            <form method='post' action='' id='main'>
+                <div class='formGrid'>
+                <label for='code' id='codeLabel'>Course Code:</label>
+                <input list='code' name='code' id='codeInput' required/>
                     <datalist id='code'>                    {/*TODO: find a way to shorten if possible*/}
                         <option value='AANB'/>
                         <option value='ACAM'/>
@@ -284,18 +285,19 @@ class Main extends React.Component {
                         <option value='WRIT'/>
                         <option value='ZOOL'/>
                     </datalist>
-                <label for='id'>Course ID:</label>
+                <label for='id' id='idLabel'>Course ID:</label>
                 <input type='text' name='id' id='id' required/>
-                <label for='section'>Section:</label>
+                <label for='section' id='sectionLabel'>Section:</label>
                 <input type='text' name='section' id='section' required/>
-                <label for='seatType'>Seat Type:</label>
-                <input list='seatType' name='seatType' required/>
+                <label for='seatType' id='seatTypeLabel'>Seat Type:</label>
+                <input list='seatType' name='seatType' id='seatTypeInput' required/>
                 <datalist id='seatType'>
                     <option value='General'/>
                     <option value='Total'/>
                     <option value='Restricted'/>
                 </datalist>
-                <input type='submit' value='Submit'></input>
+                </div>
+                <input type='submit' value='Submit' id='submit'></input>
             </form>
         )
     }
