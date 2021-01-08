@@ -14,6 +14,7 @@ router.post('/post', (req, res) => {
     const desiredCourseId = req.body.desiredCourseId;
     const desiredCourseSection = req.body.desiredCourseSection;
     const desiredSeatType = req.body.desiredSeatType;
+    const numSuccesses = 0;
     const newUser = new User({
         name,
         phoneNum,
@@ -21,6 +22,7 @@ router.post('/post', (req, res) => {
         desiredCourseId,
         desiredCourseSection,
         desiredSeatType,
+        numSuccesses
     });
     newUser
         .save()

@@ -8,6 +8,14 @@ class Header extends React.Component {
     }
 }
 
+function Output(props) {
+    return (
+        <p id='outputMsg'>
+            {props.outputMsg}
+        </p>
+    );
+}
+
 class Form extends React.Component {
     constructor(props) {
         super(props);
@@ -55,7 +63,7 @@ class Form extends React.Component {
                     <input type='number' name='phoneNum' id='phoneNum' value={this.state.phoneNum} onChange={this.handleChange} required/>
                     <label htmlFor='code' id='codeLabel'>Course Code:</label>
                     <input list='code' name='desiredCourseCode' id='codeInput' value={this.state.desiredCourseCode} onChange={this.handleChange} required/>
-                        <datalist id='code'>                    {/*TODO: find a way to shorten if possible*/}
+                        <datalist id='code'>
                             <option value='AANB'/>
                             <option value='ACAM'/>
                             <option value='ADHE'/>
@@ -338,7 +346,7 @@ class Form extends React.Component {
                     </datalist>
                 </div>
                 <input type='submit' value='Submit' id='submit'></input>
-                <p id='outputMsg'>{this.state.outputMsg}</p>
+                <Output outputMsg={this.state.outputMsg}/>
             </form>
         )
     }

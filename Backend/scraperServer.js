@@ -27,6 +27,7 @@ mongoose.connect(uri, {
     useUnifiedTopology: true,
     useNewUrlParser: true,
     useCreateIndex: true,
+    useFindAndModify: false
 });
 const connection = mongoose.connection;
 
@@ -36,7 +37,7 @@ connection.once('open', () => {
     checkUsers();
 });
 
-// Check course availability for each user every 5 mins //TODO: When to stop?
+// Check course availability for each user every 5 mins
 function checkUsers() {
     User.find()
         .then((users) => {
@@ -50,6 +51,7 @@ function checkUsers() {
 async function checkAvailabilities(userList) {
     for (let i = 0; i < userList.length; i++) {
         const user = userList[i];
+        const id = user._id;
         const courseCode = user.desiredCourseCode;
         const courseId = user.desiredCourseId;
         const courseSection = user.desiredCourseSection;
@@ -57,12 +59,31 @@ async function checkAvailabilities(userList) {
         const numSeats = await getNumSeats(courseCode, courseId, courseSection, seatType);
 
         if (numSeats > 0) {
-            console.log(`Seat available for ${user.name} in ${courseCode}${courseId} - section ${courseSection}, sending text`);
+            const updatedUser = {
+                name: user.name,
+                phoneNum: user.phoneNum,
+                desiredCourseCode: courseCode,
+                desiredCourseId: courseId,
+                desiredCourseSection: courseSection,
+                desiredSeatType: seatType,
+                numSuccesses: ++user.numSuccesses
+            };
+
+            User.findByIdAndUpdate(id, updatedUser)
+                .then(() => {console.log(`\nSeat available for ${user.name} in ${courseCode}${courseId} - section ${courseSection}, sending text`)})
+                .catch((err) => {console.log(`\nAn error occurred while updating a user: ${err}`)});
+            
             twilioClient.messages.create({
                 body: `Hi ${user.name}, a seat is available in ${courseCode}${courseId} - section ${courseSection}!`,
                 from: '+12063856072',
                 to: user.phoneNum
             });
+        }
+
+        if (user.numSuccesses >= 5) { // Removes user from database after 5 successful availability checks
+            User.findByIdAndDelete(id)
+                .then(() => {console.log(`\n${user.name}: ${courseCode}${courseId}-${courseSection} deleted after 5 successes`)})
+                .catch((err) => {console.log(`\nAn error occurred while deleting a user: ${err}`)});
         }
     }
 }
@@ -70,5 +91,5 @@ async function checkAvailabilities(userList) {
 app.use('', userRouter);
 
 app.listen(port, () => {
-    console.log(`Server is running on port: ${port}`);
+    console.log(`\nServer is running on port: ${port}`);
 });

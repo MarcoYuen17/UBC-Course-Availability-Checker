@@ -32,8 +32,8 @@ const userSchema = new Schema({
         required: true,
         trim: true,
     },
-    timeDateSpaceFound: {
-        type: String,
+    numSuccesses: {
+        type: Number,
     }
 });
 

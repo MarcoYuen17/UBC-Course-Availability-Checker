@@ -27,7 +27,7 @@ async function getNumSeats(code, id, section, seatType) {
             }
         })
         .catch((err) => {
-            console.log(`An error occurred while obtaining data for ${seatType.toLowerCase()} seats in ${code}${id} - section ${section}.`);
+            console.log(`\nAn error occurred while obtaining data for ${seatType.toLowerCase()} seats in ${code}${id} - section ${section}.`);
         });
 
         await wait();
