@@ -1,13 +1,12 @@
 #header {
   margin-top: 0;
   padding: 2%;
-  background-color: rgb(0, 38, 77);
+  background-color: hsla(210, 100%, 13%, 1);
   color: white;
 }
 
 body {
   font: 1.1em "Century Gothic", Futura, sans-serif;
-  margin: 20px;
   text-align: center;
   margin: 0;
 }
@@ -17,7 +16,7 @@ body {
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-gap: 30px 30px;
-  margin: 7.5% 0 5% 0;
+  margin-top: 5%;
 }
 
 label {
@@ -68,5 +67,9 @@ input {
 
 #submit {
   width: auto;
-  font-size: 1.05em
+  font-size: 0.9em;
+  margin: 2.5%;
+}
+#outputMsg {
+  font-size: 1.1em;
 }

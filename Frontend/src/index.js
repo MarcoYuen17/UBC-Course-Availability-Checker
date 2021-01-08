@@ -8,7 +8,7 @@ class Header extends React.Component {
     }
 }
 
-class Main extends React.Component {
+class Form extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -18,6 +18,7 @@ class Main extends React.Component {
             desiredCourseId: '',
             desiredCourseSection: '',
             desiredSeatType: '',
+            outputMsg: ''
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -40,7 +41,7 @@ class Main extends React.Component {
         xhr.send(JSON.stringify(this.state));
 
         xhr.onload = () => {
-            console.log(xhr.response);
+            this.setState({outputMsg: xhr.response});
         };
     }
 
@@ -337,6 +338,7 @@ class Main extends React.Component {
                     </datalist>
                 </div>
                 <input type='submit' value='Submit' id='submit'></input>
+                <p id='outputMsg'>{this.state.outputMsg}</p>
             </form>
         )
     }
@@ -347,7 +349,7 @@ class All extends React.Component {
         return (
             <div>
                 <Header />
-                <Main />
+                <Form />
             </div>
         )
     }
