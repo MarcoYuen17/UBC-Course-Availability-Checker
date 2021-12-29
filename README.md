@@ -2,7 +2,7 @@
 - MERN stack web app which allows users to be notified via text message when a seat is available in a particular course section
 - Course availability data scraped from UBC Course Schedule pages
 
-![](main_ui.png 'Main UI')
+![](main_ui.PNG 'Main UI')
 
 ## Features:
 - Server continuously scrapes particular UBC Course Schedule pages corresponding to user queries
